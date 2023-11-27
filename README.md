@@ -32,3 +32,15 @@ Then
      wget https://zenodo.org/records/7699682/files/singleQuarkJet_train.root -O ../data/singleQuarkJet_train.root
      ```
   - `python3 train.py configs/hypergraftest.json  1`
+  
+# Training on Raven
+
+Understand that the things like 
+  - `module load singularity`  
+will not work and build the container somewhere else.
+Upload the container via ssh.
+
+
+  
+  
+  
