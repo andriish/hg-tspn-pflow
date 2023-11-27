@@ -55,8 +55,10 @@ if __name__ == "__main__":
 
         trainer = Trainer(
             max_epochs = config['num_epochs'],
-            gpus = ngpus,
-            default_root_dir = '/storage/agrp/nilotpal/PFlow/experiments/Set2Set/',
+            #gpus = ngpus,
+            accelerator = "cpu",
+            devices = 1,
+            default_root_dir = '/home/andriish/Projects/HANSDON/rootdir',
             replace_sampler_ddp = False,
             resume_from_checkpoint = config['resume_from_checkpoint'],
         )
@@ -64,7 +66,7 @@ if __name__ == "__main__":
     else:
         comet_logger = CometLogger(
             api_key='...',
-            save_dir='/storage/agrp/nilotpal/PFlow/experiments/Set2Set/',
+            save_dir='/home/andriish/Projects/HANSDON/savedir',
             project_name="pflow-hypergraph",
             workspace="...",
             experiment_name=config['name']+'_v'+str(config['version'])

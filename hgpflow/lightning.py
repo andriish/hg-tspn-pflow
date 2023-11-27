@@ -3,7 +3,8 @@ import comet_ml
 import pytorch_lightning as pl
 
 from pytorch_lightning import Trainer
-from pytorch_lightning.core.lightning import LightningModule
+#from pytorch_lightning.core.lightning import LightningModule
+from pytorch_lightning import LightningModule
 
 import torch
 from torch.utils.data import Dataset, DataLoader, BatchSampler
@@ -54,7 +55,7 @@ class PflowLightning(LightningModule):
 
     def __init__(self, config, comet_exp=None):
         super().__init__()
-        
+        self.debug=False
         self.config = config
         self.frozen = False
         if 'frozen' in self.config:
@@ -69,7 +70,7 @@ class PflowLightning(LightningModule):
 
         self.acc_grad_iter = self.config['effective_batchsize'] // self.config['batchsize']
 
-        self.net = PflowModel(self.config, self.debug)
+        self.net = PflowModel(self.config, False)
         # self.net.apply(init_weights)
 
         if config['output model type']=='hypergraph':

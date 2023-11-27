@@ -84,18 +84,18 @@ class MPNN(nn.Module):
     
     def move_from_cellstracks_to_pre_nodes(self,g,cell_info,track_info,target_name):
 
-        g.update_all(fn.copy_src(cell_info,'m'),fn.sum('m',target_name),etype='cell_to_pre_node')
+        g.update_all(fn.copy_u(cell_info,'m'),fn.sum('m',target_name),etype='cell_to_pre_node')
         cell_only_data = g.nodes['pre_nodes'].data[target_name]
-        g.update_all(fn.copy_src(track_info,'m'),fn.sum('m',target_name),etype='track_to_pre_node')
+        g.update_all(fn.copy_u(track_info,'m'),fn.sum('m',target_name),etype='track_to_pre_node')
         g.nodes['pre_nodes'].data[target_name] = g.nodes['pre_nodes'].data[target_name]+cell_only_data
 
 
     def move_from_topostracks_to_nodes(self,g,topo_info,track_info,target_name):
 
-        g.update_all(fn.copy_src(topo_info,'m'),fn.sum('m',target_name),etype='topocluster_to_node')
+        g.update_all(fn.copy_u(topo_info,'m'),fn.sum('m',target_name),etype='topocluster_to_node')
         topo_only_data = g.nodes['nodes'].data[target_name]
 
-        g.update_all(fn.copy_src(track_info,'m'),fn.sum('m',target_name),etype='track_to_node')
+        g.update_all(fn.copy_u(track_info,'m'),fn.sum('m',target_name),etype='track_to_node')
         g.nodes['nodes'].data[target_name] = g.nodes['nodes'].data[target_name]+topo_only_data
 
 
@@ -143,10 +143,10 @@ class MPNN(nn.Module):
         
         for block_i in range(self.n_blocks):    
             for iteration_i in range(self.block_iterations[block_i]):
-                g.update_all(fn.copy_src('hidden rep','message'), self.node_update_networks[block_i],etype= 'pre_node_to_pre_node' )                
+                g.update_all(fn.copy_u('hidden rep','message'), self.node_update_networks[block_i],etype= 'pre_node_to_pre_node' )                
                 self.update_global_rep(g)
 
-        g.update_all(fn.copy_src('hidden rep','message'), fn.sum("message",'hidden rep'),etype= 'pre_node_to_topocluster')
+        g.update_all(fn.copy_u('hidden rep','message'), fn.sum("message",'hidden rep'),etype= 'pre_node_to_topocluster')
         self.move_from_topostracks_to_nodes(g,'hidden rep','hidden rep','features_0')
 
         g.update_all(self.topo_vals_edge, self.topo_vals_nodes, etype='cell_to_topocluster')
