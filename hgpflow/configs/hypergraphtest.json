@@ -42,13 +42,13 @@
     "mix_loss_wt": 1e6,
     "hyperedge_loss_wt": 2,
 
-    "path_to_inc_dist": "/home/andriish/Projects/HANDSON/incidence_dist_0.01_0.99_20bins.npz",
+    "path_to_inc_dist": "../data/incidence_dist_0.01_0.99_20bins.npz",
 
     "resume_from_checkpoint": null,
     "frozen_checkpoint": null,
 
-    "path_to_train": "/home/andriish/Projects/HANDSON/singleQuarkJet_train.root",
-    "path_to_valid": "/home/andriish/Projects/HANDSON/singleQuarkJet_train.root",
+    "path_to_train": "../data/singleQuarkJet_train.root",
+    "path_to_valid": "../data/singleQuarkJet_train.root",
 
     "loss types" : ["incidence loss"],
 
