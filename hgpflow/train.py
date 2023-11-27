@@ -64,7 +64,7 @@ if __name__ == "__main__":
             #gpus = ngpus,
             accelerator = "cpu",
             devices = 1,
-            default_root_dir = '/home/andriish/Projects/HANSDON/rootdir',
+            default_root_dir = '../rootdir',
             replace_sampler_ddp = False,
             resume_from_checkpoint = config['resume_from_checkpoint'],
         )
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     else:
         comet_logger = CometLogger(
             api_key='...',
-            save_dir='/home/andriish/Projects/HANSDON/savedir',
+            save_dir='../savedir',
             project_name="pflow-hypergraph",
             workspace="...",
             experiment_name=config['name']+'_v'+str(config['version'])
