@@ -4,8 +4,8 @@ _Coming soon_
 # Container 
 
 ## Build
-To build, do as root `singularity build MPP-pflowenv-fedora38-x86_64-v2.sif  MPP-pflowenv-fedora38-x86_64-v2.def`
-Alternatively, to build, do as user `singularity build --fakeroot MPP-pflowenv-fedora38-x86_64-v2.sif  MPP-pflowenv-fedora38-x86_64-v2.def`
+To build, do as root `singularity build MPP-pflowenv-fedora38-x86_64-v2.sif  containers/MPP-pflowenv-fedora38-x86_64-v2.def`
+Alternatively, to build, do as user `singularity build --fakeroot MPP-pflowenv-fedora38-x86_64-v2.sif  containers/MPP-pflowenv-fedora38-x86_64-v2.def`
 `export TMPDIR=$(pwd)/tmp`  might be useful if the default `/tmp` directory is too small
 ## Run
 To run, do  as user  `singularity exec MPP-pflowenv-fedora38-x86_64-v2.sif some_command_I_want`, e.g.
