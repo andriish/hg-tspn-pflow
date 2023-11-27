@@ -21,6 +21,8 @@ import json
 import os
 
 import resource
+from lightning import PflowLightning
+
 rlimit = resource.getrlimit(resource.RLIMIT_NOFILE)
 resource.setrlimit(resource.RLIMIT_NOFILE, (4096, rlimit[1]))
 
@@ -29,9 +31,13 @@ cuda_vis_single_device = '0'
 
 
 if __name__ == "__main__":
+    if len(sys.argv) < 2:
+      print("Usage:  train.py configfile.json [debugflag]")
+      sys.exit(1)
+
     config_path = sys.argv[1]
 
-    if len(sys.argv) == 3:
+    if len(sys.argv) >= 3:
         debug_mode = sys.argv[2]
     else:
         debug_mode = '0'
@@ -39,7 +45,7 @@ if __name__ == "__main__":
     with open(config_path, 'r') as fp:
          config = json.load(fp)
 
-    from lightning import PflowLightning
+
     ngpus = 1
     os.environ['CUDA_VISIBLE_DEVICES'] = cuda_vis_single_device
 
@@ -91,9 +97,9 @@ if __name__ == "__main__":
             resume_from_checkpoint = config['resume_from_checkpoint']
         )
     
-
     if config['parallelization'] == True:
         data_module = PflowDataModule(config)
         trainer.fit(net, data_module)
     else:
         trainer.fit(net)
+    sys.exit(0)

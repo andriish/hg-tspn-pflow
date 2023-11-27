@@ -42,8 +42,6 @@ RNG = default_rng(SEED)
 # pl.seed_everything(SEED)
 
 N_RAY = 0
-if N_RAY > 0:
-    ray.init(num_cpus=N_RAY,include_dashboard=False)
 
 def init_weights(m):
     if isinstance(m, torch.nn.Linear):

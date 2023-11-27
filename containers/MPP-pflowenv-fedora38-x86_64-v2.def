@@ -1,0 +1,46 @@
+Bootstrap: docker
+From: fedora:38
+%post
+    dnf -y update
+    dnf -y install 'dnf-command(config-manager)' 'dnf-command(builddep)'
+#COPR repos
+    dnf copr enable -y averbyts/HEPrpms
+    dnf copr enable -y rezso/ML
+#Nvidia and other repos
+    dnf -y config-manager --add-repo=https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
+    dnf -y module disable nvidia-driver
+    dnf -y install fedora-workstation-repositories
+    dnf -y config-manager --enable rpmfusion-nonfree-nvidia-driver
+    dnf -y install akmod-nvidia --setopt=install_weak_deps=False 
+#ML
+    dnf -y install pytorch onnx --setopt=install_weak_deps=False
+    dnf -y install pytorch dgl --setopt=install_weak_deps=False
+#HEP
+    dnf -y install pythia8 pythia8-data lhapdf python-lhapdf expat-devel xerces-c-devel clhep-devel --setopt=install_weak_deps=False
+    dnf -y install HepMC3-devel HepMC3-search-devel HepMC-devel 
+    dnf -y install gcc-c++ gcc-gfortran cmake
+    dnf -y install geant4 geant4-devel geant4-data  root python-root COCOA
+#Python zoo    
+    dnf -y install python-pip python-uproot4 python-seaborn python-numpy python-pandas gc python-tqdm python-scipy python-simplejson python-pyyaml python-certifi python-rich
+    dnf -y install python-configobj python-sentry-sdk python-jsonschema python-msgpack python-box python-requests-toolbelt  python-wrapt python-websocket-client
+    dnf -y install python-dulwich python-wurlitzer python-ipython python3-scikit-learn python-zipp
+# To be removed?
+#    Installed via pip: everett, zipp, vector, semantic-version, lightning-utilities, colorama, awkward-cpp, ray, importlib-metadata, icecream, torchmetrics, comet-ml, awkward, pytorch-lightning
+# awkward-2.5.0 awkward-cpp-26 colorama-0.4.6 comet-ml-3.35.3 everett-3.1.0 icecream-2.1.3 importlib-metadata-6.8.0 lightning-utilities-0.10.0 pytorch-lightning-1.9.2 semantic-version-2.10.0 torchmetrics-1.2.0 vector-1.1.1.post1
+    python3 -m pip install comet-ml pytorch-lightning==1.9.2 icecream vector awkward
+    yum -y clean all
+    dnf -y clean all
+#Here put the pdf you would like to have, e.g.
+#   lhapdf install CT10 LUXlep*
+%environment
+    export LC_ALL=C
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-12.0/targets/x86_64-linux/lib/
+    export DGLBACKEND=pytorch
+%runscript
+    #Here can be some random stuff
+    date
+
+#To build, do as root 'singularity build MPP-pflowenv-fedora38-x86_64-v2.sif  MPP-pflowenv-fedora38-x86_64-v2.def'
+#Alternatively, to build, do as user 'singularity build --fakeroot MPP-pflowenv-fedora38-x86_64-v2.sif  MPP-pflowenv-fedora38-x86_64-v2.def'
+#export TMPDIR=$(pwd)/tmp  might be useful if the default /tmp directory is too small
+#To run, do  as user  'singularity exec MPP-pflowenv-fedora38-x86_64-v2.sif some_command_I_want'

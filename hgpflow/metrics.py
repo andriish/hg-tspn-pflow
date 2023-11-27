@@ -1,5 +1,4 @@
 import numpy as np
-import ray
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -56,18 +55,6 @@ def update_global_vars(config):
 def l_split_ind(l, n):
     r = l%n
     return np.cumsum([0] + [l//n+1]*r + [l//n]*(n-r))
-
-@ray.remote
-def lsa(arr, s, e):
-    return np.array([linear_sum_assignment(p) for p in arr[s:e]])
-
-def ray_lsa(arr, n):
-    l = arr.shape[0]
-    ind = l_split_ind(l, n)
-    arr_id = ray.put(arr)
-    res = [lsa.remote(arr_id, ind[i], ind[i+1]) for i in range(n)]
-    res = np.concatenate([ray.get(r) for r in res])
-    return res
 
 
 def LAP_loss(input, target, has_track=None, n=0, get_assignment=False, assgn_particles=1, bool_inc=True, get_individual_losses=False):
