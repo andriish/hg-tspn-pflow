@@ -8,7 +8,7 @@ To build, do as root `singularity build MPP-pflowenv-fedora38-x86_64-v2.sif  con
 Alternatively, to build, do as user `singularity build --fakeroot MPP-pflowenv-fedora38-x86_64-v2.sif  containers/MPP-pflowenv-fedora38-x86_64-v2.def`
 `export TMPDIR=$(pwd)/tmp`  might be useful if the default `/tmp` directory is too small
 ## Run
-To run, do  as user  `singularity exec MPP-pflowenv-fedora38-x86_64-v2.sif some_command_I_want`, e.g.
+To run, do  as user  `singularity exec -B $(pwd):$(pwd) MPP-pflowenv-fedora38-x86_64-v2.sif some_command_I_want`, e.g.
 `singularity exec MPP-pflowenv-fedora38-x86_64-v2.sif bash`.
 
 # Data 
@@ -31,7 +31,7 @@ Then
      wget https://zenodo.org/records/7699682/files/singleQuarkJet_test.root -O ../data/singleQuarkJet_test.root
      wget https://zenodo.org/records/7699682/files/singleQuarkJet_train.root -O ../data/singleQuarkJet_train.root
      ```
-  - `python3 train.py configs/hypergraftest.json  1`
+  - `python3 train.py configs/hypergraphtest.json  1`
   
 # Training on Raven
 

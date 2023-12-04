@@ -76,7 +76,7 @@ if __name__ == "__main__":
     else:
         comet_logger = CometLogger(
             api_key='...',
-            save_dir='/home/andriish/Projects/HANSDON/savedir',
+            save_dir='../savedir',
             project_name="pflow-hypergraph",
             workspace="...",
             experiment_name=config['name']+'_v'+str(config['version'])
