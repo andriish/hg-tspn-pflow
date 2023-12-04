@@ -77,6 +77,7 @@ class PflowLightning(LightningModule):
         self.comet_exp = comet_exp
 
         metrics.update_global_vars(config)
+        #metrics.push_to_device(config['devicetorun'])
         self.pt_mean = config['var transform']['particle_pt']['mean']
         self.pt_std  = config['var transform']['particle_pt']['std']
         self.eta_mean = config['var transform']['particle_eta']['mean']

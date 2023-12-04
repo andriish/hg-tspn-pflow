@@ -44,13 +44,31 @@ def update_global_vars(config):
         
         fnp = np.load(config['path_to_inc_dist'])
         xs = 0.5 * (fnp['arr_0'][1:] + fnp['arr_0'][:-1])
-        INC_CONTWT_X = torch.FloatTensor(xs[:-1])
-        INC_CONTWT_Y = torch.FloatTensor(120_000 * 1/fnp['arr_1'])
-        INC_CONTWT_Y[0] = 1.0
+        if config['devicetorun'] == 'cuda'  and torch.cuda.is_available():
+          print("push_to_device: Use CUDA") 
+          device = torch.device('cuda')
+        else:
+          print("push_to_device: Use CPU")         
+          device = torch.device('cpu')
+        INC_CONTWT_X = torch.tensor(xs[:-1],device=device, dtype=torch.float32)
+        INC_CONTWT_Y = torch.tensor(120_000 * 1/fnp['arr_1'],device=device,  dtype=torch.float32)
+#        INC_CONTWT_X = torch.FloatTensor(xs[:-1],device=device)
+#        INC_CONTWT_Y = torch.FloatTensor(120_000 * 1/fnp['arr_1'],device=device)
 
-        if torch.cuda.is_available():
-            INC_CONTWT_X = INC_CONTWT_X.cuda()
-            INC_CONTWT_Y = INC_CONTWT_Y.cuda()
+        INC_CONTWT_Y[0] = 1.0
+#          print("push_to_device: Use CUDA") 
+#          INC_CONTWT_X = INC_CONTWT_X.cuda()
+#          INC_CONTWT_Y = INC_CONTWT_Y.cuda()
+
+
+#def push_to_device(devname):
+#    global INC_CONTWT_X, INC_CONTWT_Y
+#    if devname == 'cuda'  and torch.cuda.is_available():
+#      device= torch.device('cuda')
+#      print("push_to_device: Use CUDA") 
+#      INC_CONTWT_X = INC_CONTWT_X.cuda()
+#      INC_CONTWT_Y = INC_CONTWT_Y.cuda()
+
 
 def l_split_ind(l, n):
     r = l%n

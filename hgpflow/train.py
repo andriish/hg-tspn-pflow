@@ -56,15 +56,19 @@ if __name__ == "__main__":
         state_dict = torch.load(checkpoint_path)['state_dict']
         net.load_state_dict(state_dict)
         print(f'\nfrozen model loaded from -\n{checkpoint_path}\n')
-
+    print(f"Pytorch version: {torch.__version__}")
     if debug_mode == '1':
-
+        if  config['devicetorun'] =='cuda':
+           print("The supported architectures")
+           print(torch.cuda.get_arch_list())
+           print(torch.cuda.get_device_properties('cuda'))
+           
         trainer = Trainer(
             max_epochs = config['num_epochs'],
             #gpus = ngpus,
-            accelerator = "cpu",
+            accelerator = config['devicetorun'],
             devices = 1,
-            default_root_dir = '/home/andriish/Projects/HANSDON/rootdir',
+            default_root_dir = '../rootdir',
             replace_sampler_ddp = False,
             resume_from_checkpoint = config['resume_from_checkpoint'],
         )

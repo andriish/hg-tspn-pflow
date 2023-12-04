@@ -2,6 +2,7 @@
     "name" : "hypergraph",
 
     "version": "36",
+    "devicetorun": "cpu",
 
     "backprop_version": 2,
     "frozen": false,
