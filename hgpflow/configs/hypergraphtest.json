@@ -46,7 +46,7 @@
     "path_to_inc_dist": "../data/incidence_dist_0.01_0.99_20bins.npz",
 
     "resume_from_checkpoint": null,
-    "frozen_checkpoint": null,
+    "frozen_checkpoint": "../checkpoints/try.ckpt",
 
     "path_to_train": "../data/singleQuarkJet_train.root",
     "path_to_valid": "../data/singleQuarkJet_train.root",
