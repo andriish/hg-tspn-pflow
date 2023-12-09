@@ -1,8 +1,8 @@
 FROM fedora:38
-RUN dnf -y update && \
-    dnf -y install 'dnf-command(config-manager)' 'dnf-command(builddep)' && \
-    dnf copr enable -y averbyts/HEPrpms && \
-    dnf copr enable -y rezso/ML && \
+RUN dnf -y update && yum -y clean all 
+RUN    dnf -y install 'dnf-command(config-manager)' 'dnf-command(builddep)' 
+RUN    dnf copr enable -y averbyts/HEPrpms 
+RUN    dnf copr enable -y rezso/ML && \
     dnf -y config-manager --add-repo=https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo && \
     dnf -y module disable nvidia-driver && \
     dnf -y install fedora-workstation-repositories && \
