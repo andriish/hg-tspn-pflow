@@ -7,7 +7,7 @@ RUN    dnf -y config-manager --add-repo=https://developer.download.nvidia.com/co
 RUN    dnf -y module disable nvidia-driver && \
     dnf -y install fedora-workstation-repositories && \
     dnf -y config-manager --enable rpmfusion-nonfree-nvidia-driver 
-RUN        dnf -y install akmod-nvidia --setopt=install_weak_deps=False 
+RUN      dnf -y install akmod-nvidia --setopt=install_weak_deps=False 
 RUN     dnf -y install pytorch* onnx --setopt=install_weak_deps=False 
 RUN     dnf -y install pytorch* dgl --setopt=install_weak_deps=False
 RUN        dnf -y install pythia8 pythia8-data lhapdf python-lhapdf expat-devel xerces-c-devel clhep-devel --setopt=install_weak_deps=False && \
