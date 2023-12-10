@@ -21,7 +21,7 @@ import ROOT
 import torch.nn.functional as F
 from scipy.optimize import linear_sum_assignment
 
-os.environ['CUDA_VISIBLE_DEVICES'] = sys.argv[3]
+#os.environ['CUDA_VISIBLE_DEVICES'] = sys.argv[3]
 
 
 REDUCE_DS = -1
