@@ -1,4 +1,6 @@
 FROM fedora:38
+ENV LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-12.0/targets/x86_64-linux/lib/"
+ENV DGLBACKEND=pytorch
 RUN dnf -y update && yum -y clean all 
 RUN    dnf -y install 'dnf-command(config-manager)' 'dnf-command(builddep)' 
 RUN    dnf copr enable -y averbyts/HEPrpms 
