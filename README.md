@@ -16,6 +16,20 @@ It is recommended to get the latest version of the container.
 Instead of the local image, one can use the GitHub Docker image in Singularity, i.e.
 `singularity exec docker::/ghcr.io/andriish/hg-tspn-pflow:latest sh` will download the Docker image fromGithub and convert it to singularity.
 
+
+To check if the container works you can try to execute in the container 
+```
+python3
+import torch
+```
+If that does not work, try to adjust the environment
+```
+    export LC_ALL=C
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-12.0/targets/x86_64-linux/lib/
+    export DGLBACKEND=pytorch
+```
+andd try again.    
+
 ## Run
 To run, do  as user  `singularity exec -B $(pwd):$(pwd) MPP-pflowenv-fedora38-x86_64-v2.sif some_command_I_want`, e.g.
 
@@ -75,7 +89,7 @@ Then
   - Adjust the number of events in eval.py -- REDUCE_DS variable around line 27.
   - `python3 eval.py configs/hypergraphtest_part2.json  /the/path/to/the/saved/final/results/of/step2/training/savedfile.ctx`
 
-
+The eval.py script will produce a root file with semi-final results.
 
 
   
