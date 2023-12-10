@@ -73,7 +73,7 @@ Then
   - `export PYTHONPATH=$PYTHONPATH:$(pwd)`
   - Adjust the output path in the eval.py around line 65.
   - Adjust the number of events in eval.py -- REDUCE_DS variable around line 27.
-  - `python3 eval.py configs/hypergraphtest_part2.json  /the/path/to/the/saved/final/results/of/step2/training`
+  - `python3 eval.py configs/hypergraphtest_part2.json  /the/path/to/the/saved/final/results/of/step2/training/savedfile.ctx`
 
 
 
